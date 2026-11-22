@@ -64,7 +64,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="0.2.0" />
-    <meta name="docbuild:last-update" content="Nov 12, 2026"/>
+    <meta name="docbuild:last-update" content="Nov 22, 2026"/>
   
     
     <script src="../_static/searchtools.js"></script>
@@ -294,6 +294,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../cookbook/minimax_music3.html">MiniMax Music 3</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cookbook/companies/map.html">M·A·P</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cookbook/yue2.html">YuE2</a></li>
+</ul>
+</details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../cookbook/companies/inclusionai.html">InclusionAI</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../cookbook/ming_omni.html">Ming-Omni</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../cookbook/llada2_uni.html">LLaDA2.0-Uni</a></li>
@@ -325,14 +329,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../cookbook/dots_tts.html">dots.tts</a></li>
 </ul>
 </details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../cookbook/companies/fireredteam.html">FireRedTeam</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../cookbook/firered_tts3.html">FireRedTTS3</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">General Usage</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="qwen3_omni.html">Omni Model Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="native_chat_stage.html">Native Chat Stage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="audio_translations.html">Audio Translations</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">TTS Model Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="asr.html">ASR Model Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="omni.html">Omni Model Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process_topology.html">Process Topology, Replicas, and GPU Sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tts_process_topology.html">TTS Process Topology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process_topology_migration.html">Process Topology Migration</a></li>
@@ -345,7 +353,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../developer_reference/main.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../developer_reference/contribution_guide.html">Contribution Guide</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../developer_reference/mlx/index.html">Native MLX</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../developer_reference/mlx/long_audio.html">Qwen3-ASR long-recording measurements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developer_reference/mlx/long_audio.html">ASR long-recording measurements</a></li>
 </ul>
 </details></li>
 <li class="toctree-l1"><a class="reference internal" href="../developer_reference/apiserver_design.html">API Server Design</a></li>
@@ -618,6 +626,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qwen3-tts-base-voice-cloning">Qwen3-TTS Base Voice Cloning</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#voice-design">Voice Design</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qwen3-tts-voicedesign">Qwen3-TTS VoiceDesign</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-speech">Batch Speech</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uploaded-voices">Uploaded Voices</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#request-parameters">Request Parameters</a></li>
@@ -639,7 +651,7 @@
 <p>Use the OpenAI-compatible <code class="docutils literal notranslate"><span class="pre">/v1/audio/speech</span></code> interface to synthesize text. This
 page covers common part in TTS cookbook inlcluding: model setup, required inputs, and
 implementation-specific options belong in the linked cookbooks. The examples
-use <a class="reference internal" href="../cookbook/qwen3_tts.html#customvoice-checkpoints"><span class="std std-ref">Qwen3-TTS CustomVoice</span></a>, which accepts text-only requests. Replace the model and add any fields required by your checkpoint.</p>
+use <a class="reference internal" href="../cookbook/qwen3_tts.html#customvoice"><span class="std std-ref">Qwen3-TTS CustomVoice</span></a>, which accepts text-only requests. Replace the model and add any fields required by your checkpoint.</p>
 <section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
 <p>Install SGLang-Omni using the <a class="reference internal" href="../get_started/installation.html"><span class="std std-doc">installation guide</span></a>
@@ -665,7 +677,7 @@ model you are serving.</p>
 <td><p>Yes</p></td>
 <td><p>Reference audio or a precomputed speaker embedding</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../cookbook/qwen3_tts.html#customvoice-checkpoints"><span class="std std-ref">Qwen3-TTS CustomVoice</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../cookbook/qwen3_tts.html#customvoice"><span class="std std-ref">Qwen3-TTS CustomVoice</span></a></p></td>
 <td><p>Yes</p></td>
 <td><p>Built-in speakers; 1.7B supports instruction control</p></td>
 </tr>
@@ -697,27 +709,31 @@ model you are serving.</p>
 <td><p>Yes</p></td>
 <td><p>Reference audio and transcript; MeanFlow and SOAR have different settings</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../cookbook/ming_tts.html"><span class="std std-doc">Ming-Omni-TTS</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../cookbook/firered_tts3.html"><span class="std std-doc">FireRedTTS3</span></a></p></td>
+<td><p>Yes</p></td>
+<td><p>Base uses a reference clip and transcript; Instruct supports voice design and editing; Speaker provides text-only synthesis and optional dual-stream decoding</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../cookbook/ming_tts.html"><span class="std std-doc">Ming-Omni-TTS</span></a></p></td>
 <td><p>Yes</p></td>
 <td><p>Optional reference and transcript; <code class="docutils literal notranslate"><span class="pre">initial_codec_chunk_frames</span></code> is rejected</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../cookbook/ming3_tts.html"><span class="std std-doc">Ming-3.0-TTS</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../cookbook/ming3_tts.html"><span class="std std-doc">Ming-3.0-TTS</span></a></p></td>
 <td><p>CUDA; CPU decodes a complete waveform</p></td>
 <td><p>Optional reference; the Tiny and 0.5B checkpoints handle <code class="docutils literal notranslate"><span class="pre">ref_text</span></code> differently</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../cookbook/ming3_audio.html"><span class="std std-doc">Ming-3.0 audio</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../cookbook/ming3_audio.html"><span class="std std-doc">Ming-3.0 audio</span></a></p></td>
 <td><p>See cookbook</p></td>
 <td><p>Speech uses one reference clip and its transcript</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../cookbook/zonos2.html"><span class="std std-doc">Zonos2</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../cookbook/zonos2.html"><span class="std std-doc">Zonos2</span></a></p></td>
 <td><p>Yes</p></td>
 <td><p>Reference cloning and model-specific chunk configuration</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../cookbook/zonos3.html"><span class="std std-doc">Zonos3</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="../cookbook/zonos3.html"><span class="std std-doc">Zonos3</span></a></p></td>
 <td><p>Yes</p></td>
 <td><p>Optional reference clip; no transcript needed</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../cookbook/auk.html"><span class="std std-doc">AuK</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="../cookbook/auk.html"><span class="std std-doc">AuK</span></a></p></td>
 <td><p>No</p></td>
 <td><p>Serial, non-streaming engine; <code class="docutils literal notranslate"><span class="pre">stage_params.auk_engine.gen_seconds</span></code> is required for speech</p></td>
 </tr>
@@ -1061,6 +1077,34 @@ Requirements vary: some require a transcript, others use it only for a particula
 <p>To stream the same reference, add <code class="docutils literal notranslate"><span class="pre">&quot;stream&quot;:</span> <span class="pre">true</span></code> and use the <a class="reference internal" href="#streaming"><span class="std std-ref">streaming examples</span></a>. The example allows <code class="docutils literal notranslate"><span class="pre">us.aws.cdn.hf.co</span></code>, the redirect host observed for this clip; if the download redirects to a different host, allow that host too.</p>
 </section>
 </section>
+<section id="voice-design">
+<h2>Voice Design<a class="headerlink" href="#voice-design" title="Link to this heading">#</a></h2>
+<p>Voice design generates a voice from a text description without reference audio. Support and required fields vary by model. Describing a voice is different from controlling the speaking style of a preset or reference voice.</p>
+<section id="qwen3-tts-voicedesign">
+<h3>Qwen3-TTS VoiceDesign<a class="headerlink" href="#qwen3-tts-voicedesign" title="Link to this heading">#</a></h3>
+<p>This example requires the 1.7B VoiceDesign checkpoint, not CustomVoice or Base. The <code class="docutils literal notranslate"><span class="pre">task_type:</span> <span class="pre">&quot;VoiceDesign&quot;</span></code> setting is specific to Qwen3-TTS.</p>
+<p>Launch VoiceDesign:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sgl-omni<span class="w"> </span>serve<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--model-path<span class="w"> </span>Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--config<span class="w"> </span>examples/configs/qwen3_tts_1_7b_voicedesign.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--port<span class="w"> </span><span class="m">8000</span>
+</pre></div>
+</div>
+<p>After <code class="docutils literal notranslate"><span class="pre">/health</span></code> returns HTTP 200, provide the text to speak in <code class="docutils literal notranslate"><span class="pre">input</span></code> and a non-empty voice description in <code class="docutils literal notranslate"><span class="pre">instructions</span></code>. Omit <code class="docutils literal notranslate"><span class="pre">voice</span></code> and reference-audio fields.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>--fail-with-body<span class="w"> </span>http://localhost:8000/v1/audio/speech<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">"Content-Type: application/json"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">'{</span>
+<span class="s1">    "model": "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign",</span>
+<span class="s1">    "input": "Hello from Qwen VoiceDesign.",</span>
+<span class="s1">    "task_type": "VoiceDesign",</span>
+<span class="s1">    "instructions": "A warm, natural young adult voice."</span>
+<span class="s1">  }'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>designed-voice.wav
+</pre></div>
+</div>
+<p>To stream the generated speech, add <code class="docutils literal notranslate"><span class="pre">&quot;stream&quot;:</span> <span class="pre">true</span></code> and use the <a class="reference internal" href="#streaming"><span class="std std-ref">streaming examples</span></a>. See the <a class="reference internal" href="../cookbook/qwen3_tts.html#voicedesign"><span class="std std-ref">Qwen3-TTS cookbook</span></a> for model selection and configuration details.</p>
+</section>
+</section>
 <section id="batch-speech">
 <h2>Batch Speech<a class="headerlink" href="#batch-speech" title="Link to this heading">#</a></h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">/v1/audio/speech/batch</span></code> when one request should synthesize several
@@ -1167,122 +1211,127 @@ removes the persisted sample. The list response includes API-process
 <td><p><code class="docutils literal notranslate"><span class="pre">&quot;wav&quot;</span></code></p></td>
 <td><p>Output audio format: <code class="docutils literal notranslate"><span class="pre">wav</span></code>, <code class="docutils literal notranslate"><span class="pre">mp3</span></code>, <code class="docutils literal notranslate"><span class="pre">flac</span></code>, <code class="docutils literal notranslate"><span class="pre">pcm</span></code>, <code class="docutils literal notranslate"><span class="pre">aac</span></code>, or <code class="docutils literal notranslate"><span class="pre">opus</span></code>. Explicit values override the default in every mode. HTTP streaming accepts only <code class="docutils literal notranslate"><span class="pre">wav</span></code> or <code class="docutils literal notranslate"><span class="pre">pcm</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">speed</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sample_rate</span></code></p></td>
+<td><p>int</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Requested output rate in Hz for the Python server, from <code class="docutils literal notranslate"><span class="pre">7350</span></code> to <code class="docutils literal notranslate"><span class="pre">192000</span></code> subject to the format’s encoder limits. For example, pass <code class="docutils literal notranslate"><span class="pre">8000</span></code> for 8 kHz</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">speed</span></code></p></td>
 <td><p>float</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></td>
 <td><p>Playback speed multiplier from <code class="docutils literal notranslate"><span class="pre">0.25</span></code> to <code class="docutils literal notranslate"><span class="pre">4.0</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stream</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stream</span></code></p></td>
 <td><p>bool</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
 <td><p>Enable raw WAV streaming by default. Set <code class="docutils literal notranslate"><span class="pre">response_format=&quot;pcm&quot;</span></code> for raw PCM, or <code class="docutils literal notranslate"><span class="pre">stream_format=&quot;sse&quot;</span></code> for SSE events</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stream_format</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stream_format</span></code></p></td>
 <td><p>string</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">&quot;audio&quot;</span></code></p></td>
 <td><p>Streaming transport: <code class="docutils literal notranslate"><span class="pre">audio</span></code> returns raw WAV or PCM bytes when streaming is enabled; <code class="docutils literal notranslate"><span class="pre">sse</span></code> enables SSE even when <code class="docutils literal notranslate"><span class="pre">stream</span></code> is omitted or false. SSE uses data-only <code class="docutils literal notranslate"><span class="pre">message</span></code> events by default. The server startup flag <code class="docutils literal notranslate"><span class="pre">--enable-speech-sse-named-events</span></code> selects the framing and error type shown in the <a class="reference internal" href="#sse-event-framing"><span class="std std-ref">SSE Event Framing table</span></a></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">initial_codec_chunk_frames</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">initial_codec_chunk_frames</span></code></p></td>
 <td><p>int</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Model-specific first streaming chunk override. Qwen3-TTS, Higgs, MOSS-TTS Local, and Zonos2 document support; <code class="docutils literal notranslate"><span class="pre">0</span></code> selects their steady chunk size. Ming-Omni-TTS rejects this field</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stream_codec_output</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stream_codec_output</span></code></p></td>
 <td><p>bool</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
 <td><p>Qwen3-TTS only. Forward codec frames to the vocoder as they are generated. Set <code class="docutils literal notranslate"><span class="pre">false</span></code> to restore whole-utterance decoding for CustomVoice / VoiceDesign</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">suppress_bootstrap_silence</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">suppress_bootstrap_silence</span></code></p></td>
 <td><p>bool</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
 <td><p>Qwen3-TTS only. Withhold the silent bootstrap codec frame’s audio from streamed CustomVoice output on validated voice/language pairs; an audible first frame is always emitted unchanged. Set <code class="docutils literal notranslate"><span class="pre">false</span></code> to keep the leading silence</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">references</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">references</span></code></p></td>
 <td><p>list</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Reference audio for voice cloning. Each item has <code class="docutils literal notranslate"><span class="pre">audio_path</span></code> (local path / file URL / data URL / remote URL) and <code class="docutils literal notranslate"><span class="pre">text</span></code>. For Qwen3-TTS Base, the only item may instead carry <code class="docutils literal notranslate"><span class="pre">speaker_embedding</span></code>: the x-vector the same checkpoint’s speaker encoder computes from the clip, 1024 numbers for 0.6B and 2048 for 1.7B, each finite in the model’s dtype, which implies x-vector-only mode</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ref_audio</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ref_audio</span></code></p></td>
 <td><p>string</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Reference audio path / URL / base64 string. Equivalent to <code class="docutils literal notranslate"><span class="pre">references[0].audio_path</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ref_text</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ref_text</span></code></p></td>
 <td><p>string</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Transcript for <code class="docutils literal notranslate"><span class="pre">ref_audio</span></code>. Equivalent to <code class="docutils literal notranslate"><span class="pre">references[0].text</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">language</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">language</span></code></p></td>
 <td><p>string</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Model-specific language hint; supported values vary by model</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">task_type</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">task_type</span></code></p></td>
 <td><p>string</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Model-specific task selector; Qwen3-TTS supports <code class="docutils literal notranslate"><span class="pre">Base</span></code>, <code class="docutils literal notranslate"><span class="pre">CustomVoice</span></code>, and <code class="docutils literal notranslate"><span class="pre">VoiceDesign</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instructions</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">instructions</span></code></p></td>
 <td><p>string</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Model-specific style or voice instructions</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_new_tokens</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_new_tokens</span></code></p></td>
 <td><p>int</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Maximum number of generated tokens</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">token_count</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">token_count</span></code></p></td>
 <td><p>int</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Model-specific duration token target</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">duration_tokens</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">duration_tokens</span></code></p></td>
 <td><p>int</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Alias-style duration token target for models that expose duration control</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x_vector_only_mode</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x_vector_only_mode</span></code></p></td>
 <td><p>bool</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Qwen3-TTS Base speaker-embedding mode</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">temperature</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">temperature</span></code></p></td>
 <td><p>float</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Sampling temperature</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">top_p</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">top_p</span></code></p></td>
 <td><p>float</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Top-p sampling</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">top_k</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">top_k</span></code></p></td>
 <td><p>int</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Top-k sampling</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">epsilon_cutoff</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">epsilon_cutoff</span></code></p></td>
 <td><p>float</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Model-specific sampling cutoff</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">repetition_penalty</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">repetition_penalty</span></code></p></td>
 <td><p>float</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Repetition penalty</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">seed</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">seed</span></code></p></td>
 <td><p>int</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Model-specific. Qwen3-TTS Base accepts request-scoped seed, Voxtral TTS currently rejects seed</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stage_params</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stage_params</span></code></p></td>
 <td><p>object</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
 <td><p>Model-specific stage overrides; see the model cookbook</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">return_spec_tokens_details</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">return_spec_tokens_details</span></code></p></td>
 <td><p>bool</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
 <td><p>With a speculative draft, return this request’s acceptance statistics: <code class="docutils literal notranslate"><span class="pre">X-SGLang-Omni-Spec-*</span></code> headers on buffered audio, <code class="docutils literal notranslate"><span class="pre">sglext.spec_tokens_details</span></code> on <code class="docutils literal notranslate"><span class="pre">speech.audio.done</span></code> and on the raw audio outcome</p></td>
@@ -1290,6 +1339,8 @@ removes the persisted sample. The list response includes API-process
 </tbody>
 </table>
 </div>
+<p>The Python server also accepts <code class="docutils literal notranslate"><span class="pre">sample_rate</span></code> in batch defaults, batch items, and WebSocket session configuration. WAV and PCM accept any rate in the supported range. FLAC rates above <code class="docutils literal notranslate"><span class="pre">65535</span></code> Hz must be divisible by 10. AAC and MP3 accept rates supported by their encoders, and explicit Opus output uses <code class="docutils literal notranslate"><span class="pre">48000</span></code> Hz. The server rejects unsupported explicit rates before synthesis.</p>
+<p>Omitting <code class="docutils literal notranslate"><span class="pre">sample_rate</span></code> uses the model’s native rate where the encoder supports it. Compressed encoders may adapt that rate, such as Opus playback at 48 kHz. WAV headers, HTTP <code class="docutils literal notranslate"><span class="pre">X-Sample-Rate</span></code>, batch result <code class="docutils literal notranslate"><span class="pre">sample_rate</span></code>, and WebSocket <code class="docutils literal notranslate"><span class="pre">audio.start.sample_rate</span></code> report the delivered rate.</p>
 </section>
 <section id="error-handling">
 <h2>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading">#</a></h2>
@@ -1402,6 +1453,10 @@ reference inputs, and workload.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qwen3-tts-base-voice-cloning">Qwen3-TTS Base Voice Cloning</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#voice-design">Voice Design</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#qwen3-tts-voicedesign">Qwen3-TTS VoiceDesign</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-speech">Batch Speech</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uploaded-voices">Uploaded Voices</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#request-parameters">Request Parameters</a></li>
@@ -1440,7 +1495,7 @@ By SGLang-Omni Team
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Nov 12, 2026.
+  Last updated on Nov 22, 2026.
   <br/>
 </p>
   </div>
